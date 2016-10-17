@@ -4,9 +4,7 @@ import os, sys, shutil, re
 import pyspark as ps
 from time import time
 
-if 'sc' not in locals():
-    sc = ps.SparkContext('local[40]')
-sc.setLogLevel("ERROR")
+
 
 RE = re.compile(r'''^\(['\"](.*)['\"], (\d*)\)''')
 
@@ -64,4 +62,7 @@ def main():
         f.write('day {}: {}\n'.format(day_folder, et-st))
 
 if __name__ == '__main__':
+    if 'sc' not in locals():
+        sc = ps.SparkContext('local[40]')
+    sc.setLogLevel("ERROR")
     main()
